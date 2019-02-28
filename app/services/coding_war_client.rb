@@ -10,12 +10,19 @@ class CodingWarClient < ApiClient
   @@server_secret = nil
   @@board_state = nil
 
+  def self.server_secret
+    @@server_secret
+  end
+
+  def self.board_state
+    @@board_state
+  end
+
   def login
     url = build_url('/login')
     payload = {secret: SECRET, username: USERNAME}
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
     @@server_secret = response['usersecret']
-    @@board_state
   end
 
   def move(direction)
@@ -27,14 +34,12 @@ class CodingWarClient < ApiClient
     }
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
     @@board_state = response
-    @@board_state
   end
 
   def status
     url = build_url("/status/#{SECRET}")
     response = api_call(:get, url, { header: DEFAULT_HEADERS }, true)
     @@board_state = response
-    @@board_state
   end
 
   def fire(direction)
@@ -46,7 +51,6 @@ class CodingWarClient < ApiClient
     }
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
     @@board_state = response
-    @@board_state
   end
 
   def place_bomb
@@ -57,7 +61,6 @@ class CodingWarClient < ApiClient
     }
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
     @@board_state = response
-    @@board_state
   end
 
   private

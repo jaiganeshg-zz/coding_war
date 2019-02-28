@@ -1,16 +1,17 @@
 class GameController < ApplicationController
+  rescue_from ::Exception, with: :status
   def login
-    @board_state = CodingWarClient.new.login
+    CodingWarClient.new.login
     render :board
   end
 
   def move
-    @board_state = CodingWarClient.new.move(params.require(:direction))
+    CodingWarClient.new.move(params.require(:direction))
     render :board
   end
 
   def status
-    @board_state = CodingWarClient.new.status
+    CodingWarClient.new.status
     render :board
   end
 
@@ -19,12 +20,12 @@ class GameController < ApplicationController
   end
 
   def fire
-    @board_state = CodingWarClient.new.fire(params.require(:direction))
+    CodingWarClient.new.fire(params.require(:direction))
     render :board
   end
 
   def place_bomb
-    @board_state = CodingWarClient.new.place_bomb
+    CodingWarClient.new.place_bomb
     render :board
   end
 end

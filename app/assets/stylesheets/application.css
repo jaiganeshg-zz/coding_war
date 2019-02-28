@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+input[type='submit'] {
+    height: 30px;
+    font-size: 13px;
+    background-color: #f55e55;
+    border: none;
+    color: #fff;
+    width: 150px;
+}
+a {
+    height: 30px;
+    font-size: 30px;
+    background-color: #f55e55;
+    border: none;
+    color: #fff;
+    width: 150px;
+}
