@@ -1,0 +1,35 @@
+h1 War SWISS KNIFE
+div.buttons
+  h3 Buttons
+  h2.div
+    table
+      tr
+        td= button_to "Login", {action: "login"}, {class: 'btn btn-primary'}
+        td= button_to "status", {action: "status", method:  :get}, {class: 'btn btn-primary'}
+      tr
+        td= button_to "Move Left", {action: "move", direction: 'LEFT'}, {class: 'btn btn-primary'}
+        td= button_to "Move Right", {action: "move", direction: 'RIGHT'}, {class: 'btn btn-primary'}
+        td= button_to "Move Up", {action: "move", direction: 'UP'}, {class: 'btn btn-primary'}
+        td= button_to "Move Down", {action: "move", direction: 'DOWN'}, {class: 'btn btn-primary'}
+      tr
+        td= button_to "Fire Left", {action: "fire", direction: 'LEFT'}, {class: 'btn btn-primary'}
+        td= button_to "Fire Right", {action: "fire", direction: 'RIGHT'}, {class: 'btn btn-primary'}
+        td= button_to "Fire Up", {action: "fire", direction: 'UP'}, {class: 'btn btn-primary'}
+        td= button_to "Fire Down", {action: "fire", direction: 'DOWN'}, {class: 'btn btn-primary'}
+      tr
+        td= button_to "Place Bomb", {action: "place_bomb"}, {class: 'btn btn-primary'}
+
+div.status
+  h2 Status
+  table
+    -last_y = 0
+    -if @board_state.present?
+      -@board_state['objects'].each do |cell|
+        -current_y = cell['y']
+        -if current_y > last_y
+          -last_y = current_y
+          tr
+        td= cell['symbol']
+      end
+
+

@@ -1,57 +1,63 @@
-class CodingWar < ApiClient
-  @username = 'swiss_knife'
-  @secret = 'swiss_knife'
+class CodingWarClient < ApiClient
+  USERNAME = 'swiss_knife'
+  SECRET = 'swiss_knife'
   BASE_URL = 'http://demo7524716.mockable.io/'
-  @@server_secret = nil
-  @@board_state = nil
   UP = 'UP'
   DOWN = 'DOWN'
   LEFT = 'LEFT'
   RIGHT = 'RIGHT'
 
+  @@server_secret = nil
+  @@board_state = nil
+
   def login
     url = build_url('/login')
-    payload = {secret: @secret, username: @username}
+    payload = {secret: SECRET, username: USERNAME}
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
-    @@server_secret = response[:body]['usersecret']
+    @@server_secret = response['usersecret']
+    @@board_state
   end
 
   def move(direction)
     url = build_url('/move')
-    payload = {secret: @secret,
-               username: @username,
+    payload = {secret: SECRET,
+               username: USERNAME,
                usersecret: @@server_secret,
                direction: direction
     }
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
-    @@board_state = response[:body]
+    @@board_state = response
+    @@board_state
   end
 
   def status
-    url = build_url("/status/#{@secret}")
+    url = build_url("/status/#{SECRET}")
     response = api_call(:get, url, { header: DEFAULT_HEADERS }, true)
-    @@board_state = response[:body]
+    @@board_state = response
+    @@board_state
   end
 
   def fire(direction)
     url = build_url('/fire')
-    payload = {secret: @secret,
-               username: @username,
+    payload = {secret: SECRET,
+               username: USERNAME,
                usersecret: @@server_secret,
                direction: direction
     }
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
-    @@board_state = response[:body]
+    @@board_state = response
+    @@board_state
   end
 
   def place_bomb
     url = build_url('/place_bomb')
-    payload = {secret: @secret,
-               username: @username,
+    payload = {secret: SECRET,
+               username: USERNAME,
                usersecret: @@server_secret
     }
     response = api_call(:post, url, { header: DEFAULT_HEADERS, body: payload.to_json }, true)
-    @@board_state = response[:body]
+    @@board_state = response
+    @@board_state
   end
 
   private

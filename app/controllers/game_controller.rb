@@ -1,21 +1,30 @@
 class GameController < ApplicationController
   def login
-    CodingWar.new.login
+    @board_state = CodingWarClient.new.login
+    render :board
   end
 
   def move
-    CodingWar.new.move(params.require(:direction))
+    @board_state = CodingWarClient.new.move(params.require(:direction))
+    render :board
   end
 
   def status
-    CodingWar.new.status
+    @board_state = CodingWarClient.new.status
+    render :board
+  end
+
+  def home
+    render :board
   end
 
   def fire
-    CodingWar.new.fire(params.require(:direction))
+    @board_state = CodingWarClient.new.fire(params.require(:direction))
+    render :board
   end
 
   def place_bomb
-    CodingWar.new.place_bomb
+    @board_state = CodingWarClient.new.place_bomb
+    render :board
   end
 end
